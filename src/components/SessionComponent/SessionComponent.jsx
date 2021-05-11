@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
 `
 const Button = styled.button`
   height: 22px;
@@ -18,11 +18,11 @@ const Underline = styled.div`
   height: 2px;
   background-color: red;
 `
-const SessionComponent = ({time = 12, setShow}) => {
+const SessionComponent = ({time = 12, handleOpenModal}) => {
 
     return (
         <Wrapper>
-            <Button variant="primary" onClick={() => setShow(true)}>
+            <Button onClick={() => handleOpenModal()}>
                 {time}
             </Button>
             <Underline/>

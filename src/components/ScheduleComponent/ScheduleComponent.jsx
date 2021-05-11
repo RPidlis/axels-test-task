@@ -1,7 +1,6 @@
-import { useState } from 'react'
 import SessionComponent from '../SessionComponent/SessionComponent'
 import styled from 'styled-components'
-import ModalWindowComponent from '../ModalWindowComponent/ModalWindowComponent'
+import { useHistory } from 'react-router-dom'
 
 const Schedule = styled.div`
   height: 200px;
@@ -15,18 +14,19 @@ const Schedule = styled.div`
 `
 
 const ScheduleComponent = () => {
-    const [show, setShow] = useState(false)
-
+    const history = useHistory()
+    const handleOpenModal = () =>{
+        history.push('/modal')
+    }
 
     return (
         <Schedule>
-            {show && <ModalWindowComponent setShow={setShow} show={show}/>}
-            <SessionComponent time={'10:00'} setShow={setShow}/>
-            <SessionComponent time={'12:00'} setShow={setShow}/>
-            <SessionComponent time={'14:00'} setShow={setShow}/>
-            <SessionComponent time={'16:00'} setShow={setShow}/>
-            <SessionComponent time={'18:00'} setShow={setShow}/>
-            <SessionComponent time={'20:00'} setShow={setShow}/>
+            <SessionComponent time={'10:00'} handleOpenModal={handleOpenModal}/>
+            <SessionComponent time={'12:00'} handleOpenModal={handleOpenModal}/>
+            <SessionComponent time={'14:00'} handleOpenModal={handleOpenModal}/>
+            <SessionComponent time={'16:00'} handleOpenModal={handleOpenModal}/>
+            <SessionComponent time={'18:00'} handleOpenModal={handleOpenModal}/>
+            <SessionComponent time={'20:00'} handleOpenModal={handleOpenModal}/>
         </Schedule>
     )
 }

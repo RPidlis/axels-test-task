@@ -1,6 +1,7 @@
 import CinemaHallComponent from '../CinemaHallComponent/CinemaHallComponent'
 import styled from 'styled-components'
 import { Button, Modal } from 'react-bootstrap'
+import { useHistory } from 'react-router-dom'
 
 const ModalWrapper = styled.div`
   display: flex;
@@ -22,12 +23,14 @@ const Tickets = styled.div`
   flex-direction: column;
 
 `
-const ModalWindowComponent = ({setShow, show}) => {
+const ModalWindowComponent = () => {
+    const history = useHistory()
+
     return (
         <>
             <Modal
-                show={show}
-                onHide={() => setShow(false)}
+                show={true}
+                onHide={() => history.push('/')}
                 size={'lg'}
                 aria-labelledby="example-custom-modal-styling-title"
             >
@@ -44,13 +47,13 @@ const ModalWindowComponent = ({setShow, show}) => {
                             <Tickets>
                                 {'//some choized tickets'}
                             </Tickets>
-                            <Button variant="danger" onClick={() => setShow(false)}>Buy Tickets</Button>
+                            <Button variant="danger" onClick={() => history.push('/')}>Buy Tickets</Button>
                         </Wrapper>
                     </ModalWrapper>
                 </Modal.Body>
             </Modal>
         </>
-)
+    )
 
 }
 
