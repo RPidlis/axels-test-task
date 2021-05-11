@@ -1,11 +1,14 @@
-import './App.css';
+import './App.css'
+import ScheduleComponent from './components/ScheduleComponent/ScheduleComponent'
 
-function App() {
-  return (
-    <div className="App">
-      {'hello'}
-    </div>
-  );
+
+const App = () => {
+
+    return (
+        <>
+            <ScheduleComponent/>
+        </>
+    )
 }
 
-export default App;
+export default App

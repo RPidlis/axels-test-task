@@ -5,6 +5,7 @@ export function* getSchedule() {
     yield takeEvery(actions.GET_SCHEDULE_REQUEST, function* () {
         try {
             let response = yield scheduleApi.get();
+            console.log(response)
             yield put({
                 type: actions.GET_SCHEDULE_REQUEST_SUCCESS,
                 schedule: response
@@ -19,9 +20,9 @@ export function* getSchedule() {
 // Error handling
 export function* getScheduleError() {
     yield takeEvery(actions.GET_SCHEDULE_REQUEST_ERROR,
-        function () { console.log("error") })
+        () =>  console.log("error") )
 }
-export default function* rootSaga() {
+export default function* ScheduleSaga() {
     yield all([
         fork(getSchedule)
     ])

@@ -2,7 +2,7 @@ import actions from './actions';
 const initState = {
     schedule: []
 }
-export default function scheduleReducer(state = initState, action) {
+const scheduleReducer =(state = initState, action)=> {
     switch (action.type) {
         case actions.GET_SCHEDULE_REQUEST:
             return {
@@ -18,3 +18,5 @@ export default function scheduleReducer(state = initState, action) {
             return state;
     }
 }
+
+export default scheduleReducer

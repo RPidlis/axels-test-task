@@ -6,10 +6,10 @@ const instance = axios.create({
 })
 
 export const scheduleApi = {
+    _path: 'schedule',
     get: () => {
-        return instance.get('schedule').then(respons=>{
-            // console.log(JSON.parse(respons.data))
-            console.log(respons)
+        return instance.get(this._path).then(response => {
+            return response.data
         })
     }
 
