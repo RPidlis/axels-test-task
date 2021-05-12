@@ -1,16 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import reportWebVitals from './reportWebVitals';
+import ReactDOM from 'react-dom';
 
-ReactDOM.render(
-    <App />,
-  document.getElementById('root')
-);
+import App from './App';
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+import { GlobalStyle } from './styled/globalStyle';
+
+ReactDOM.render( <>
+	<GlobalStyle/>
+	<App/>
+</>, document.getElementById( 'root' ) );
+
 reportWebVitals();

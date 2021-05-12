@@ -1,5 +1,6 @@
-import scheduleReducer from './schedule/reducer'
 import { combineReducers } from 'redux'
+
+import scheduleReducer from './schedule/reducer'
 
 const rootReducer = combineReducers({
     schedule: scheduleReducer
