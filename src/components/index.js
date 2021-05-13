@@ -4,5 +4,8 @@ import ScheduleComponent from './ScheduleComponent';
 import SessionComponent from './SessionComponent';
 
 export {
-	CinemaHallComponent, ScheduleComponent, SessionComponent, ModalWindowComponent
+  CinemaHallComponent,
+  ScheduleComponent,
+  SessionComponent,
+  ModalWindowComponent
 };

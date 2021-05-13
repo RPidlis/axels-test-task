@@ -1,9 +1,7 @@
 import { all } from 'redux-saga/effects';
 
-import scheduleSagas from './schedule/saga';
+import ScheduleSaga from './ducks/schedule';
 
 export default function* rootSaga() {
-    yield all([
-        scheduleSagas()
-    ]);
+  yield all([ScheduleSaga()]);
 }
