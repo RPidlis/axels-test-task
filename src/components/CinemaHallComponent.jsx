@@ -1,27 +1,22 @@
 import { Container, Row } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 import { Seat } from '../styled/components/cinemaHall';
 
-const CinemaHallComponent = () => {
-  let rowsTotal = Array.from({ length: 3 }, (s, k) => k);
-  const seatsTotal = Array.from({ length: 10 }, (s, k) => k);
-
+const CinemaHallComponent = ({ seats }) => {
   return (
-    <Container className="d-flex flex-column justify-content-around p-0 ">
-      {rowsTotal.length >= 0
-        ? rowsTotal.map((item) => {
-            rowsTotal--;
-            return (
-              <Row key={item} className="d-flex justify-content-between pb-2">
-                {seatsTotal.map((i) => (
-                  <Seat key={i} />
-                ))}
-              </Row>
-            );
-          })
-        : null}
+    <Container className="d-flex flex-column justify-content-around p-0">
+      <Row className="d-flex justify-content-between pb-2">
+        {seats.map((i) => (
+          <Seat key={i.seat}>{i.seat}</Seat>
+        ))}
+      </Row>
     </Container>
   );
 };
 
-export default CinemaHallComponent;
+const mapStateToProps = (state) => ({
+  seats: state.schedule.seats
+});
+export default compose(connect(mapStateToProps, {}))(CinemaHallComponent);

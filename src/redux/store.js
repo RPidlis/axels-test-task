@@ -9,14 +9,16 @@ const rootReducer = combineReducers({
 });
 
 const sagaMiddleware = createSagaMiddleware();
-const middlewares = [sagaMiddleware];
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware({ ...middlewares }))
+  composeEnhancers(applyMiddleware(sagaMiddleware))
 );
 
 sagaMiddleware.run(rootSaga);
+
 window.__store__ = store;
+
 export { store };

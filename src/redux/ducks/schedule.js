@@ -9,7 +9,8 @@ const actions = {
 };
 
 const initState = {
-  schedule: []
+  sessions: [],
+  seats: []
 };
 
 const scheduleReducer = (state = initState, action) => {
@@ -21,7 +22,8 @@ const scheduleReducer = (state = initState, action) => {
     case actions.GET_SCHEDULE_REQUEST_SUCCESS:
       return {
         ...state,
-        actions: action.payload
+        sessions: action.payload.sessions,
+        seats: action.payload.seats
       };
     default:
       return state;
@@ -36,7 +38,6 @@ export function* setSchedule() {
   yield takeEvery(actions.GET_SCHEDULE_REQUEST, function* () {
     try {
       let response = yield scheduleApi.get();
-      console.log(response);
       yield put({
         type: actions.GET_SCHEDULE_REQUEST_SUCCESS,
         payload: response

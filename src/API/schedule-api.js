@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const instance = axios.create( {
-	baseURL: 'http://demo3743498.mockable.io/'
-} );
-
+const instance = axios.create({
+  baseURL: 'http://demo1829214.mockable.io/'
+});
 export const scheduleApi = {
-	_path: 'schedule', get: () => instance.get( this._path ).then( response => response.data )
+  path: 'schedule',
+  get: () => instance.get('schedule').then((response) => response.data)
 };
