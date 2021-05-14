@@ -4,19 +4,16 @@ import { compose } from 'redux';
 
 import { Seat } from '../styled/components/cinemaHall';
 
-const CinemaHallComponent = ({ seats }) => {
-  return (
-    <Container className="d-flex flex-column justify-content-around p-0">
-      <Row className="d-flex justify-content-between pb-2">
-        {seats.map((i) => (
-          <Seat key={i.seat}>{i.seat}</Seat>
-        ))}
-      </Row>
-    </Container>
-  );
-};
+const CinemaHallComponent = ( {seats} ) => (
+	<Container className="d-flex flex-column justify-content-around p-0">
+		<Row className="d-flex justify-content-between pb-2">
+			{seats.map( ( item ) => (<Seat key={item.seatId}>{item.seatId}</Seat>) )}
+		</Row>
+	</Container>
+);
 
-const mapStateToProps = (state) => ({
-  seats: state.schedule.seats
+const mapStateToProps = ( {schedule} ) => ({
+	seats: schedule.seats
 });
-export default compose(connect(mapStateToProps, {}))(CinemaHallComponent);
+
+export default compose( connect( mapStateToProps, {} ) )( CinemaHallComponent );

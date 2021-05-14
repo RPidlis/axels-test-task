@@ -22,11 +22,12 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "prettier/prettier": [
-      "warn",
+      0,
       {
         "singleQuote": true,
         "semi": true,
-        "trailingComma": "none"
+        "trailingComma": "none",
+        "tabWidth": 2
       }
     ],
     "react/prop-types": [0, { "ignore": "ignore"}]

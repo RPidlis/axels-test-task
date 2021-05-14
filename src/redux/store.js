@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
-import rootSaga from '../redux/sagas';
+import rootSaga from '../redux/ducks/schedule';
 import { scheduleReducer } from './ducks/schedule';
 
 const rootReducer = combineReducers({

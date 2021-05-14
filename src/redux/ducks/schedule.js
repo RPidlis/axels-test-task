@@ -55,9 +55,14 @@ export function* getScheduleError() {
   yield takeEvery(actions.GET_SCHEDULE_REQUEST_ERROR, () =>
     console.log('error')
   );
-}
+};
 
 export default function* ScheduleSaga() {
   yield all([fork(setSchedule)]);
-}
-export { scheduleReducer, getSchedule };
+};
+
+function* rootSaga() {
+  yield all([setSchedule()]);
+};
+
+export { scheduleReducer, getSchedule , rootSaga};
