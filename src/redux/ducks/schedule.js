@@ -1,17 +1,22 @@
-import { takeEvery, put, all, fork } from 'redux-saga/effects';
+import { takeEvery, put, all } from 'redux-saga/effects';
 
 import { scheduleApi } from '../../API/schedule-api';
 
 const actions = {
   GET_SCHEDULE_REQUEST: 'GET_SCHEDULE_REQUEST',
   GET_SCHEDULE_REQUEST_ERROR: ' GET_SCHEDULE_REQUEST_ERROR',
-  GET_SCHEDULE_REQUEST_SUCCESS: ' GET_SCHEDULE_REQUEST_SUCCESS'
+  GET_SCHEDULE_REQUEST_SUCCESS: ' GET_SCHEDULE_REQUEST_SUCCESS',
+  GET_SESSION_ID: ' GET_SESSION_ID',
+  SET_SALED_SEATS: ' SET_SALED_SEATS',
 };
 
 const initState = {
   sessions: [],
-  seats: []
+  seats: [],
+  sessionSeats: [],
 };
+
+
 
 const scheduleReducer = (state = initState, action) => {
   switch (action.type) {
@@ -25,6 +30,15 @@ const scheduleReducer = (state = initState, action) => {
         sessions: action.payload.sessions,
         seats: action.payload.seats
       };
+    case actions.GET_SESSION_ID:
+      return {
+        ...state,
+      };
+    case actions.SET_SALED_SEATS:
+      return {
+        ...state,
+        sessionSeats:  state.sessions.find((session)=> session.id === action.id).saledSeats
+      };
     default:
       return state;
   }
@@ -32,8 +46,21 @@ const scheduleReducer = (state = initState, action) => {
 
 //=====Action Creators
 const getSchedule = () => ({ type: actions.GET_SCHEDULE_REQUEST });
+const getSessionId = (id) => ({ type: actions.GET_SESSION_ID, id });
 
 //===== Sagas side effects
+
+function* setSessionSeat() {
+  yield takeEvery(actions.GET_SESSION_ID, setSaledSeats);
+};
+
+function* setSaledSeats(action) {
+  yield put({
+    type: actions.SET_SALED_SEATS,
+    id: action.id
+  });
+};
+
 export function* setSchedule() {
   yield takeEvery(actions.GET_SCHEDULE_REQUEST, function* () {
     try {
@@ -48,7 +75,7 @@ export function* setSchedule() {
       });
     }
   });
-}
+};
 
 // Error handling
 export function* getScheduleError() {
@@ -57,12 +84,8 @@ export function* getScheduleError() {
   );
 };
 
-export default function* ScheduleSaga() {
-  yield all([fork(setSchedule)]);
-};
-
 function* rootSaga() {
-  yield all([setSchedule()]);
+  yield all([setSchedule(),setSessionSeat()])
 };
 
-export { scheduleReducer, getSchedule , rootSaga};
+export { scheduleReducer, getSchedule ,getSessionId, rootSaga};

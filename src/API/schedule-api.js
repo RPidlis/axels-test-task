@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://demo1829214.mockable.io/'
+  baseURL: 'http://demo5400503.mockable.io/'
 });
 export const scheduleApi = {
   path: 'schedule',

@@ -1,19 +1,24 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { configureStore } from './redux/store';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 
 import App from './App';
 
 import { GlobalStyle } from './styled/components/globalStyle';
-import { store } from './redux/store';
+
+const store = configureStore();
 
 ReactDOM.render(
   <>
-    <Provider store={store}>
-      <GlobalStyle />
-      <App />
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <GlobalStyle />
+        <App />
+      </Provider>
+    </BrowserRouter>
   </>,
   document.getElementById('root')
 );

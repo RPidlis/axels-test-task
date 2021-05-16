@@ -8,9 +8,6 @@ const Seat = styled(Button)`
   width: 30px;
   height: 40px;
   margin: 4px;
-  //border-radius: 7px;
-  //background-color: red;
-  //text-align: center;
   @media ${device.laptop} {
     width: 25px;
     height: 35px;
