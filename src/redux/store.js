@@ -21,19 +21,3 @@ export function configureStore(initialState) {
   sagaMiddleware.run(rootSaga);
   return store;
 }
-
-
-// const sagaMiddleware = createSagaMiddleware();
-//
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-//
-// const store = createStore(
-//   rootReducer,
-//   composeEnhancers(applyMiddleware(sagaMiddleware))
-// );
-//
-// sagaMiddleware.run(rootSaga);
-//
-// window.__store__ = store;
-//
-// export { store };

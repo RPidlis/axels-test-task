@@ -16,8 +16,6 @@ const initState = {
   sessionSeats: [],
 };
 
-
-
 const scheduleReducer = (state = initState, action) => {
   switch (action.type) {
     case actions.GET_SCHEDULE_REQUEST:

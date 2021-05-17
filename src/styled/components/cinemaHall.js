@@ -15,28 +15,4 @@ const Seat = styled(Button)`
   }
 `;
 
-
-
-
-
-
-
-
-
-
-
-
-
-// const Seat = styled(Button)`
-//   padding: 0;
-//   width: 30px;
-//   height: 40px;
-//   margin: 4px;
-//   @media ${device.tablet} {
-//     width: 25px;
-//     height: 35px;
-//     margin: 2px;
-//   }
-// `;
-
 export { Seat };

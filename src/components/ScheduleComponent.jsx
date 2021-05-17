@@ -3,7 +3,6 @@ import { Container } from 'react-bootstrap';
 
 import { SessionComponent } from './index';
 
-
 const ScheduleComponent = ({ sessions }) => {
   const history = useHistory();
   const handleOpenModal = (id) => {

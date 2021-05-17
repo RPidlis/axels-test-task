@@ -64,8 +64,6 @@ const mapStateToProps = ({ schedule }) => ({
   seats: schedule.seats,
 });
 
-// ModalWindowComponent.displayName = 'ModalWindowComponent';
-
 export default compose(
   withRouter,
   connect(mapStateToProps, { getSessionId })
