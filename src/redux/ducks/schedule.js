@@ -37,18 +37,22 @@ const scheduleReducer = (state = initState, action) => {
     case actions.SET_SALED_SEATS:
       return {
         ...state,
-        sessionSeats: state.sessions.find((session) => session.id === action.id).saledSeats,
+        sessionSeats: state.sessions.find((session) => session.id === action.id)
+          .saledSeats,
       };
     case actions.SET_PURCHASE_SEATS:
       return {
         ...state,
-        sessions: state.sessions.map((session)=> {
-          if( session.id===action.payload.id ){
-            return {...session, saledSeats: [...session.saledSeats, ...action.payload.seats]}
-          }else {
-            return session
+        sessions: state.sessions.map((session) => {
+          if (session.id === action.payload.id) {
+            return {
+              ...session,
+              saledSeats: [...session.saledSeats, ...action.payload.seats],
+            };
+          } else {
+            return session;
           }
-        })
+        }),
       };
     default:
       return state;
