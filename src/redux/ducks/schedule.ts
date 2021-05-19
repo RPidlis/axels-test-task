@@ -25,19 +25,20 @@ const initialState = {
   sessionSeats: null as Array<number> | null,
 };
 
-//======= Get action type for reducer
-type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never;
-export type InferActionsType<
-  T extends { [key: string]: (...arg: any[]) => any }
-> = ReturnType<PropertiesType<T>>;
-type ActionType = InferActionsType<typeof actions>;
+export type InitialStateType = typeof initialState;
 
-export type initialStateType = typeof initialState;
+//======= Get action type for reducer
+type PropertiesType<Type> = Type extends { [key: string]: infer CustomType }
+  ? CustomType
+  : never;
+type InferActionsType<Type extends { [key: string]: (...arg: any[]) => any }> =
+  ReturnType<PropertiesType<Type>>;
+type ActionType = InferActionsType<typeof actions>;
 
 const scheduleReducer = (
   state = initialState,
   action: ActionType
-): initialStateType => {
+): InitialStateType => {
   switch (action.type) {
     case 'GET_SCHEDULE_REQUEST':
       return {
@@ -76,10 +77,11 @@ const scheduleReducer = (
   }
 };
 //===== Action Types
-type getSessionIdType = {
+type GetSessionIdType = {
   type: 'GET_SESSION_ID';
   id: number;
 };
+
 type PurchaseSeatsType = {
   type: 'LOAD_PURCHASE_SEATS';
   payload: { id: number; seats: Array<number> };
@@ -93,7 +95,7 @@ export const actions = {
       type: 'LOAD_PURCHASE_SEATS',
       payload,
     } as const),
-  setSchedule: (payload: initialStateType) =>
+  setSchedule: (payload: InitialStateType) =>
     ({
       type: 'GET_SCHEDULE_REQUEST_SUCCESS',
       payload,
@@ -118,7 +120,7 @@ export const actions = {
 export function* setScheduleWatcher(): Generator {
   yield takeEvery('GET_SCHEDULE_REQUEST', function* () {
     try {
-      let response: initialStateType = yield scheduleApi.get();
+      let response: InitialStateType = yield scheduleApi.get();
       yield put(actions.setSchedule(response));
     } catch (error) {
       yield put(actions.setScheduleError());
@@ -130,7 +132,7 @@ function* setSessionSeatWatcher(): Generator {
   yield takeEvery('GET_SESSION_ID', setSaledSeatsWorker);
 }
 
-function* setSaledSeatsWorker(action: getSessionIdType): Generator {
+function* setSaledSeatsWorker(action: GetSessionIdType): Generator {
   console.log(action);
   yield put(actions.setSaledSeats(action.id));
 }

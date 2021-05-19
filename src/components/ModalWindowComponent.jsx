@@ -6,17 +6,17 @@ import { compose } from 'redux';
 
 import { CinemaHallComponent } from './index';
 
-import {getSessionId , getPurchaseSeats} from '../redux/ducks/schedule';
+import { getSessionId, getPurchaseSeats } from '../redux/ducks/schedule';
 
 const ModalWindowComponent = ({
   sessionSeats,
   match,
-  getSessionId,
   seats,
+  getSessionId,
   getPurchaseSeats,
 }) => {
   const history = useHistory();
-  const [choizedSeats, setChoizedSeats] = useState([]);
+  const [chosenSeats, setChosenSeats] = useState([]);
   const urlId = Number.parseInt(match.params.id);
 
   useEffect(() => {
@@ -26,18 +26,18 @@ const ModalWindowComponent = ({
   }, [urlId, seats]);
 
   const handleModalClose = () => {
-    getPurchaseSeats({ id: urlId, seats: [...choizedSeats] });
+    getPurchaseSeats({ id: urlId, seats: [...chosenSeats] });
     history.push('/');
   };
   const onDeleteChoizedTicket = (id) => {
-    setChoizedSeats([...choizedSeats.filter((item) => item !== id)]);
+    setChosenSeats([...chosenSeats.filter((item) => item !== id)]);
   };
 
   const onSeatClick = (id) => {
-    if (choizedSeats.includes(id)) {
+    if (chosenSeats.includes(id)) {
       onDeleteChoizedTicket(id);
     } else {
-      setChoizedSeats((array) => [...array, id]);
+      setChosenSeats((array) => [...array, id]);
     }
   };
 
@@ -58,7 +58,7 @@ const ModalWindowComponent = ({
           <Row className="d-flex justify-content-around p-0 ">
             <Col xs="11" sm="10" lg="6" className="mb-5 mt-2">
               <CinemaHallComponent
-                choizedSeats={choizedSeats}
+                chosenSeats={chosenSeats}
                 sessionSeats={sessionSeats}
                 seats={seats}
                 onSeatClick={onSeatClick}
@@ -72,8 +72,8 @@ const ModalWindowComponent = ({
             >
               <h3>Tickets</h3>
               <Col className="d-flex flex-column">
-                {choizedSeats?.length ? (
-                  choizedSeats.map((seat) => (
+                {chosenSeats?.length ? (
+                  chosenSeats.map((seat) => (
                     <div key={seat}>
                       <Toast onClose={() => onDeleteChoizedTicket(seat)}>
                         <Toast.Header>
@@ -102,8 +102,5 @@ const mapStateToProps = ({ schedule }) => ({
   seats: schedule.seats,
 });
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps, {getSessionId, getPurchaseSeats})
-)(ModalWindowComponent);
-
+export default compose( withRouter, connect(mapStateToProps, { getSessionId, getPurchaseSeats }) )
+(ModalWindowComponent);
