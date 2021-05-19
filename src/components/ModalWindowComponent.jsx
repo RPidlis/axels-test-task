@@ -6,7 +6,7 @@ import { compose } from 'redux';
 
 import { CinemaHallComponent } from './index';
 
-import { getPurchaseSeats, getSessionId } from '../redux/ducks/schedule';
+import {getSessionId , getPurchaseSeats} from '../redux/ducks/schedule';
 
 const ModalWindowComponent = ({
   sessionSeats,
@@ -20,7 +20,7 @@ const ModalWindowComponent = ({
   const urlId = Number.parseInt(match.params.id);
 
   useEffect(() => {
-    if (seats.length !== 0) {
+    if (seats?.length !== 0) {
       getSessionId(urlId);
     }
   }, [urlId, seats]);
@@ -104,5 +104,6 @@ const mapStateToProps = ({ schedule }) => ({
 
 export default compose(
   withRouter,
-  connect(mapStateToProps, { getSessionId, getPurchaseSeats })
+  connect(mapStateToProps, {getSessionId, getPurchaseSeats})
 )(ModalWindowComponent);
+
