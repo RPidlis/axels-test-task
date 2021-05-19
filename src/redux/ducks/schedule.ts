@@ -2,13 +2,13 @@ import { takeEvery, put, all } from 'redux-saga/effects';
 
 import { scheduleApi } from '../../API/schedule-api';
 
-export type sessionType = {
-  id: number | null;
-  time: string | null;
+export type SessionType = {
+  id: number;
+  time: string;
   saledSeats: Array<number>;
 };
 
-export type seatType = {
+export type SeatType = {
   id: number;
 };
 
@@ -16,12 +16,12 @@ const initialState = {
   totalSessions: null as number | null,
   sessions: [
     {
-      id: null as number | null,
-      time: null as string | null,
-      saledSeats: null as Array<number> | null,
+      id: 1 as number,
+      time: '10:00' as string,
+      saledSeats: [1,2,3] as Array<number>,
     },
-  ] as Array<sessionType>,
-  seats: null as Array<seatType> | null,
+  ] as Array<SessionType>,
+  seats: null as Array<SeatType> | null,
   sessionSeats: null as Array<number> | null,
 };
 
@@ -55,13 +55,13 @@ const scheduleReducer = (
         ...state,
         sessionSeats:
           state.sessions.find(
-            (session: sessionType) => session.id === action.id
+            (session: SessionType) => session.id === action.id
           )?.saledSeats || null,
       };
     case 'SET_PURCHASE_SEATS':
       return {
         ...state,
-        sessions: state.sessions?.map((session: sessionType) => {
+        sessions: state.sessions?.map((session: SessionType) => {
           if (session.id === action.payload.id) {
             return {
               ...session,

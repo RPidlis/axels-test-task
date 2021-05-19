@@ -1,6 +1,16 @@
 import { Button, Container } from 'react-bootstrap';
+import React from 'react';
 
-const SessionComponent = ({ time = 12, id, handleOpenModal }) => (
+type PropsType = {
+  time: string;
+  id: number;
+  handleOpenModal: (id: number) => void;
+};
+const SessionComponent: React.FC<PropsType> = ({
+  time,
+  id,
+  handleOpenModal,
+}) => (
   <Container className="d-flex flex-column align-items-center mb-2">
     <Button onClick={() => handleOpenModal(id)} variant="outline-secondary">
       {time}

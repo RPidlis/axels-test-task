@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-import { seatType, sessionType } from '../redux/ducks/schedule';
+import { SeatType, SessionType } from '../redux/ducks/schedule';
 
 export type scheduleType = {
   totalSessions: number | null;
-  sessions: Array<sessionType>;
-  seats: Array<seatType>;
+  sessions: Array<SessionType>;
+  seats: Array<SeatType>;
 };
 
 const instance = axios.create({
