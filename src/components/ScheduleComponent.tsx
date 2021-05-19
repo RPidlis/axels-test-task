@@ -1,14 +1,14 @@
-import React from "react";
 import { useHistory } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
+import React from 'react';
 
 import { SessionComponent } from './index';
 
-import {SessionType} from "../redux/ducks/schedule";
+import { SessionType } from '../redux/ducks/schedule';
 
 type PropsType = {
-  sessions: Array<SessionType>
-}
+  sessions: Array<SessionType>;
+};
 
 const ScheduleComponent: React.FC<PropsType> = ({ sessions }) => {
   const history = useHistory();

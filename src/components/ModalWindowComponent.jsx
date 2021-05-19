@@ -1,7 +1,7 @@
 import { Button, Col, Container, Modal, Row, Toast } from 'react-bootstrap';
 import { useHistory, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import { CinemaHallComponent } from './index';
@@ -102,5 +102,7 @@ const mapStateToProps = ({ schedule }) => ({
   seats: schedule.seats,
 });
 
-export default compose( withRouter, connect(mapStateToProps, { getSessionId, getPurchaseSeats }) )
-(ModalWindowComponent);
+export default compose(
+  withRouter,
+  connect(mapStateToProps, { getSessionId, getPurchaseSeats })
+)(ModalWindowComponent);

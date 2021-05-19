@@ -6,6 +6,7 @@ type PropsType = {
   id: number;
   handleOpenModal: (id: number) => void;
 };
+
 const SessionComponent: React.FC<PropsType> = ({
   time,
   id,

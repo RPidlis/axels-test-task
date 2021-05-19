@@ -1,8 +1,17 @@
 import { Container, Row } from 'react-bootstrap';
+import React from 'react';
 
 import { Seat } from '../styled/components/cinemaHall';
+import { SeatType } from '../redux/ducks/schedule';
 
-const CinemaHallComponent = ({
+type PropsType = {
+  sessionSeats: Array<number>;
+  seats: Array<SeatType>;
+  chosenSeats: Array<number>;
+  onSeatClick: (id: number) => void;
+};
+
+const CinemaHallComponent: React.FC<PropsType> = ({
   sessionSeats,
   seats,
   chosenSeats,
