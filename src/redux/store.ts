@@ -9,10 +9,11 @@ const rootReducer = combineReducers({
 
 const sagaMiddleware = createSagaMiddleware();
 
-export function configureStore(initialState) {
+export function configureStore(initialState?: AppStateType) {
   const middleware = [sagaMiddleware];
   const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// @ts-ignore
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(
     rootReducer,
     initialState,
@@ -21,3 +22,8 @@ export function configureStore(initialState) {
   sagaMiddleware.run(rootSaga);
   return store;
 }
+
+export const store = configureStore()
+
+type RootReducerType = typeof rootReducer
+export type AppStateType = ReturnType<RootReducerType>

@@ -1,11 +1,18 @@
 import { useHistory } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
+import React from 'react';
 
 import { SessionComponent } from './index';
 
-const ScheduleComponent = ({ sessions }) => {
+import { SessionType } from '../redux/ducks/schedule';
+
+type PropsType = {
+  sessions: Array<SessionType>;
+};
+
+const ScheduleComponent: React.FC<PropsType> = ({ sessions }) => {
   const history = useHistory();
-  const handleOpenModal = (id) => {
+  const handleOpenModal = (id: number) => {
     history.push(`/modal/${id}`);
   };
 

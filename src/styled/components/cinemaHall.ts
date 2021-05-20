@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { device } from './globalStyle';
 
 const Seat = styled(Button)`
-	padding: 0;
+  padding: 0;
   width: 30px;
   height: 40px;
   margin: 4px;
