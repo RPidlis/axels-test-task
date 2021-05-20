@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { useEffect } from 'react';
 import { compose } from 'redux';
 
-import { ModalWindowComponent, ScheduleComponent } from './components/index';
+import { ModalWindowComponent, ScheduleComponent } from './components';
 
 import { getSchedule } from './redux/ducks/schedule';
 

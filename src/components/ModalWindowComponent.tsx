@@ -1,14 +1,34 @@
+import { RouteComponentProps, useHistory, withRouter } from 'react-router-dom';
 import { Button, Col, Container, Modal, Row, Toast } from 'react-bootstrap';
-import { useHistory, withRouter } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 import { CinemaHallComponent } from './index';
 
 import { getSessionId, getPurchaseSeats } from '../redux/ducks/schedule';
+import { AppStateType } from '../redux/store';
 
-const ModalWindowComponent = ({
+type PurchaseSeatsType = {
+  id: number
+  seats: Array<number>;
+};
+
+type PathParamType = {
+  id: string;
+};
+
+type MapPropsType = ReturnType<typeof mapStateToProps>;
+type DispatchPropsType = {
+  getSessionId: (id: number) => void;
+  getPurchaseSeats: (payload: PurchaseSeatsType) => void;
+};
+
+type PropsType = MapPropsType &
+  DispatchPropsType &
+  RouteComponentProps<PathParamType>;
+
+const ModalWindowComponent: React.FC<PropsType> = ({
   sessionSeats,
   match,
   seats,
@@ -16,8 +36,8 @@ const ModalWindowComponent = ({
   getPurchaseSeats,
 }) => {
   const history = useHistory();
-  const [chosenSeats, setChosenSeats] = useState([]);
-  const urlId = Number.parseInt(match.params.id);
+  const [chosenSeats, setChosenSeats] = useState<Array<number>>([]);
+  const urlId: number = Number(match.params.id);
 
   useEffect(() => {
     if (seats?.length !== 0) {
@@ -25,15 +45,15 @@ const ModalWindowComponent = ({
     }
   }, [urlId, seats]);
 
-  const handleModalClose = () => {
-    getPurchaseSeats({ id: urlId, seats: [...chosenSeats] });
+  const handleModalClose = (): void => {
+    getPurchaseSeats({ id: urlId, seats: chosenSeats });
     history.push('/');
   };
-  const onDeleteChoizedTicket = (id) => {
-    setChosenSeats([...chosenSeats.filter((item) => item !== id)]);
+  const onDeleteChoizedTicket = (id: number): void => {
+    setChosenSeats([...chosenSeats.filter((item: number) => item !== id)]);
   };
 
-  const onSeatClick = (id) => {
+  const onSeatClick = (id: number): void => {
     if (chosenSeats.includes(id)) {
       onDeleteChoizedTicket(id);
     } else {
@@ -97,12 +117,13 @@ const ModalWindowComponent = ({
   );
 };
 
-const mapStateToProps = ({ schedule }) => ({
+const mapStateToProps = ({ schedule }: AppStateType) => ({
   sessionSeats: schedule.sessionSeats,
   seats: schedule.seats,
 });
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps, { getSessionId, getPurchaseSeats })
-)(ModalWindowComponent);
+export default compose<React.ComponentType>(
+    withRouter,
+    connect(mapStateToProps, { getSessionId, getPurchaseSeats })
+)
+(ModalWindowComponent);

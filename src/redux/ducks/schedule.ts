@@ -31,8 +31,7 @@ export type InitialStateType = typeof initialState;
 type PropertiesType<Type> = Type extends { [key: string]: infer CustomType }
   ? CustomType
   : never;
-type InferActionsType<Type extends { [key: string]: (...arg: any[]) => any }> =
-  ReturnType<PropertiesType<Type>>;
+type InferActionsType<Type extends { [key: string]: (...arg: any[]) => any }> = ReturnType<PropertiesType<Type>>;
 type ActionType = InferActionsType<typeof actions>;
 
 const scheduleReducer = (
@@ -90,7 +89,7 @@ type PurchaseSeatsType = {
 export const actions = {
   getSchedule: () => ({ type: 'GET_SCHEDULE_REQUEST' } as const),
   getSessionId: (id: number) => ({ type: 'GET_SESSION_ID', id } as const),
-  getPurchaseSeats: (payload: Array<number>) =>
+  getPurchaseSeats: (payload: PurchaseSeatsType) =>
     ({
       type: 'LOAD_PURCHASE_SEATS',
       payload,
