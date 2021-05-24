@@ -1,12 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
-import { SeatType, SessionType } from '../redux/ducks/schedule';
-
-export type scheduleType = {
-  totalSessions: number | null;
-  sessions: Array<SessionType>;
-  seats: Array<SeatType>;
-};
+import { InitialStateType } from '../redux/ducks/schedule';
 
 const instance = axios.create({
   baseURL: 'http://demo5400503.mockable.io/',
@@ -15,5 +9,7 @@ const instance = axios.create({
 export const scheduleApi = {
   path: 'schedule',
   get: () =>
-    instance.get<scheduleType>('schedule').then((response) => response.data),
+    instance
+      .get<AxiosResponse<InitialStateType>>('schedule')
+      .then((response) => response.data),
 };

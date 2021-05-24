@@ -3,20 +3,20 @@ import createSagaMiddleware from 'redux-saga';
 
 import { rootSaga, scheduleReducer } from './ducks/schedule';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   schedule: scheduleReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();
 
-export function configureStore(initialState?: AppStateType) {
+export function configureStore<AppStateType>() {
   const middleware = [sagaMiddleware];
   const composeEnhancers =
 // @ts-ignore
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   const store = createStore(
     rootReducer,
-    initialState,
+    undefined,
     composeEnhancers(applyMiddleware(...middleware))
   );
   sagaMiddleware.run(rootSaga);

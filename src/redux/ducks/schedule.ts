@@ -89,7 +89,7 @@ type PurchaseSeatsType = {
 export const actions = {
   getSchedule: () => ({ type: 'GET_SCHEDULE_REQUEST' } as const),
   getSessionId: (id: number) => ({ type: 'GET_SESSION_ID', id } as const),
-  getPurchaseSeats: (payload: PurchaseSeatsType) =>
+  getPurchaseSeats: (payload:{ id: number; seats: Array<number> }) =>
     ({
       type: 'LOAD_PURCHASE_SEATS',
       payload,
@@ -117,14 +117,16 @@ export const actions = {
 
 //===== Sagas side effects
 export function* setScheduleWatcher(): Generator {
-  yield takeEvery('GET_SCHEDULE_REQUEST', function* () {
-    try {
-      let response: InitialStateType = yield scheduleApi.get();
-      yield put(actions.setSchedule(response));
-    } catch (error) {
-      yield put(actions.setScheduleError());
-    }
-  });
+  yield takeEvery('GET_SCHEDULE_REQUEST', setScheduleWorker);
+}
+
+export function* setScheduleWorker () {
+  try {
+    let response: InitialStateType = yield scheduleApi.get();
+    yield put(actions.setSchedule(response));
+  } catch (error) {
+    yield put(actions.setScheduleError());
+  }
 }
 
 function* setSessionSeatWatcher(): Generator {
@@ -132,7 +134,6 @@ function* setSessionSeatWatcher(): Generator {
 }
 
 function* setSaledSeatsWorker(action: GetSessionIdType): Generator {
-  console.log(action);
   yield put(actions.setSaledSeats(action.id));
 }
 

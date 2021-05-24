@@ -10,7 +10,7 @@ import { getSessionId, getPurchaseSeats } from '../redux/ducks/schedule';
 import { AppStateType } from '../redux/store';
 
 type PurchaseSeatsType = {
-  id: number
+  id: number;
   seats: Array<number>;
 };
 
@@ -123,7 +123,6 @@ const mapStateToProps = ({ schedule }: AppStateType) => ({
 });
 
 export default compose<React.ComponentType>(
-    withRouter,
-    connect(mapStateToProps, { getSessionId, getPurchaseSeats })
-)
-(ModalWindowComponent);
+  withRouter,
+  connect(mapStateToProps, { getSessionId, getPurchaseSeats })
+)(ModalWindowComponent);
