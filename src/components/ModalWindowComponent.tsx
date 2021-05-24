@@ -1,4 +1,4 @@
-import { RouteComponentProps, useHistory, withRouter } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Button, Col, Container, Modal, Row, Toast } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -24,20 +24,19 @@ type DispatchPropsType = {
   getPurchaseSeats: (payload: PurchaseSeatsType) => void;
 };
 
-type PropsType = MapPropsType &
-  DispatchPropsType &
-  RouteComponentProps<PathParamType>;
+ export type PropsType = MapPropsType &
+  DispatchPropsType;
 
 const ModalWindowComponent: React.FC<PropsType> = ({
   sessionSeats,
-  match,
   seats,
   getSessionId,
   getPurchaseSeats,
 }) => {
   const history = useHistory();
+  const { id } = useParams<PathParamType>();
   const [chosenSeats, setChosenSeats] = useState<Array<number>>([]);
-  const urlId: number = Number(match.params.id);
+  const urlId: number = Number(id);
 
   useEffect(() => {
     if (seats?.length !== 0) {
@@ -97,7 +96,7 @@ const ModalWindowComponent: React.FC<PropsType> = ({
                     <div key={seat}>
                       <Toast onClose={() => onDeleteChoizedTicket(seat)}>
                         <Toast.Header>
-                          <strong className="mr-auto">{seat}</strong>
+                          <strong data-testid={seat} className="mr-auto">{seat}</strong>
                         </Toast.Header>
                       </Toast>
                     </div>
@@ -123,6 +122,5 @@ const mapStateToProps = ({ schedule }: AppStateType) => ({
 });
 
 export default compose<React.ComponentType>(
-  withRouter,
   connect(mapStateToProps, { getSessionId, getPurchaseSeats })
 )(ModalWindowComponent);

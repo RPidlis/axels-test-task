@@ -21,7 +21,7 @@ test('session button 1 to be disabled', () => {
 });
 
 test('session button 6 should be enable', () => {
-  const { getByText} = renderCinemaHallComponent();
+  const { getByText } = renderCinemaHallComponent();
 
   const button = getByText(6);
   expect(button).toBeEnabled();
