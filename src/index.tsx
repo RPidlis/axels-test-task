@@ -1,5 +1,4 @@
 import { BrowserRouter } from 'react-router-dom';
-import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
@@ -8,7 +7,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 import { GlobalStyle } from './styled/components/globalStyle';
-
 
 ReactDOM.render(
   <>
@@ -21,5 +19,3 @@ ReactDOM.render(
   </>,
   document.getElementById('root')
 );
-
-reportWebVitals();

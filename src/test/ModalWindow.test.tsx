@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
-import { render } from '../test-utils';
+import { render } from './test-utils';
 
 import App from '../App';
 
@@ -32,41 +32,45 @@ const initialState = {
     sessionSeats: [11, 12, 13, 14, 15, 16, 17, 18],
   },
 };
-describe('modal window', () => {
-  it('modal window is on screen', () => {
+
+describe('test renders modal window', () => {
+  it('test renders modal window on screen', () => {
     const { getByRole } = render(
       <MemoryRouter initialEntries={['/modal/1']}>
         <App />
       </MemoryRouter>,
       { initialState }
     );
+
     const title = getByRole('dialog', { name: 'Cinema Hall' });
     expect(title).toBeInTheDocument();
   });
 
-  it(' saled session button 11 should disabled ', () => {
+  it('test disables seats on cinema hall', () => {
     const { getByRole } = render(
       <MemoryRouter initialEntries={['/modal/1']}>
         <App />
       </MemoryRouter>,
       { initialState }
     );
+
     const button = getByRole('button', { name: '11' });
     expect(button).toBeDisabled();
   });
 
-  it(' cinema button 1 should enable ', () => {
+  it('test enables seats on cinema hall', () => {
     const { getByRole } = render(
       <MemoryRouter initialEntries={['/modal/1']}>
         <App />
       </MemoryRouter>,
       { initialState }
     );
+
     const button = getByRole('button', { name: '1' });
     expect(button).toBeEnabled();
   });
 
-  it(' add seat 1 to ticket list ', () => {
+  it('test renders ticket in ticket list', () => {
     const { getByRole, getByTestId } = render(
       <MemoryRouter initialEntries={['/modal/1']}>
         <App />
@@ -83,7 +87,7 @@ describe('modal window', () => {
     expect(ticket).toBeInTheDocument();
   });
 
-  it(' close modal with button "Buy Tickets" ', () => {
+  it('test renders modal windows after close', () => {
     const { getByRole, getByText } = render(
       <MemoryRouter initialEntries={['/modal/1']}>
         <App />
