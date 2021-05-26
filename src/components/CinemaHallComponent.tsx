@@ -19,20 +19,20 @@ const CinemaHallComponent: React.FC<PropsType> = ({
 }) => (
   <Container className="d-flex flex-column justify-content-around p-0">
     <Row className="d-flex justify-content-between pb-2">
-      {seats?.map((item) => {
-        const isSeatSold = sessionSeats?.includes(item.id);
-        const isSeatChoized = chosenSeats?.includes(item.id) || false;
+      {seats?.map((seat) => {
+        const isSeatSold = sessionSeats?.includes(seat.id);
+        const isSeatChoized = chosenSeats?.includes(seat.id) || false;
         return (
           <Seat
             active={isSeatChoized}
-            key={item.id}
+            key={seat.id}
             variant={
               isSeatChoized ? 'info' : isSeatSold ? 'info' : 'outline-info'
             }
             disabled={isSeatSold}
-            onClick={() => onSeatClick(item.id)}
+            onClick={() => onSeatClick(seat.id)}
           >
-            {item.id}
+            {seat.id}
           </Seat>
         );
       })}

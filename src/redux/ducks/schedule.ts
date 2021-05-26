@@ -129,19 +129,19 @@ export function* setScheduleWorker () {
   }
 }
 
-function* setSessionSeatWatcher(): Generator {
-  yield takeEvery('GET_SESSION_ID', setSaledSeatsWorker);
+function* sessionIdWatcher(): Generator {
+  yield takeEvery('GET_SESSION_ID', saledSeatsWorker);
 }
 
-function* setSaledSeatsWorker(action: GetSessionIdType): Generator {
+function* saledSeatsWorker(action: GetSessionIdType): Generator {
   yield put(actions.setSaledSeats(action.id));
 }
 
-function* loadSoldTicketsWatcher(): Generator {
-  yield takeEvery('LOAD_PURCHASE_SEATS', setPurchaseSeatsWorker);
+function* ticketsWatcher(): Generator {
+  yield takeEvery('LOAD_PURCHASE_SEATS', purchaseSeatsWorker);
 }
 
-function* setPurchaseSeatsWorker(action: PurchaseSeatsType): Generator {
+function* purchaseSeatsWorker(action: PurchaseSeatsType): Generator {
   yield put(actions.setPurchaseSeats(action.payload));
 }
 
@@ -153,8 +153,8 @@ export function* getScheduleError(): Generator {
 function* rootSaga(): Generator {
   yield all([
     setScheduleWatcher(),
-    setSessionSeatWatcher(),
-    loadSoldTicketsWatcher(),
+    sessionIdWatcher(),
+    ticketsWatcher(),
   ]);
 }
 
