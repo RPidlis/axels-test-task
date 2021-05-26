@@ -4,7 +4,7 @@ import React from 'react';
 import { Seat } from '../styled/components/cinemaHall';
 import { SeatType } from '../redux/ducks/schedule';
 
-type PropsType = {
+export type PropsType = {
   sessionSeats: Array<number> | null;
   seats: Array<SeatType> | null;
   chosenSeats: Array<number>;
