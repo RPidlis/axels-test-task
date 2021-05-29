@@ -23,6 +23,7 @@ const initialState = {
   ] as Array<SessionType>,
   seats: null as Array<SeatType> | null,
   sessionSeats: null as Array<number> | null,
+  scheduleError: false
 };
 
 export type InitialStateType = typeof initialState;
@@ -43,11 +44,17 @@ const scheduleReducer = (
       return {
         ...state,
       };
+    case 'GET_SCHEDULE_REQUEST_ERROR':
+      return {
+        ...state,
+        scheduleError: true
+      };
     case 'GET_SCHEDULE_REQUEST_SUCCESS':
       return {
         ...state,
         sessions: action.payload.sessions,
         seats: action.payload.seats,
+        scheduleError: false
       };
     case 'SET_SALED_SEATS':
       return {

@@ -33,9 +33,10 @@ const ModalWindowComponent: React.FC<PropsType> = ({
   getSessionId,
   getPurchaseSeats,
 }) => {
-  const history = useHistory();
-  const { id } = useParams<PathParamType>();
   const [chosenSeats, setChosenSeats] = useState<Array<number>>([]);
+  const { id } = useParams<PathParamType>();
+  const history = useHistory();
+
   const urlId: number = Number(id);
 
   useEffect(() => {
@@ -48,9 +49,6 @@ const ModalWindowComponent: React.FC<PropsType> = ({
     getPurchaseSeats({ id: urlId, seats: chosenSeats });
     history.push('/');
   };
-  const onDeleteTicket = (id: number): void => {
-    setChosenSeats([...chosenSeats.filter((item: number) => item !== id)]);
-  };
 
   const onSeatClick = (id: number): void => {
     if (chosenSeats.includes(id)) {
@@ -58,6 +56,10 @@ const ModalWindowComponent: React.FC<PropsType> = ({
     } else {
       setChosenSeats((array) => [...array, id]);
     }
+  };
+
+  const onDeleteTicket = (id: number): void => {
+    setChosenSeats([...chosenSeats.filter((item: number) => item !== id)]);
   };
 
   return (
