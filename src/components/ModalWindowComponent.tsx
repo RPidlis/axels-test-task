@@ -1,5 +1,5 @@
 import { useHistory, useParams } from 'react-router-dom';
-import { Button, Col, Container, Modal, Row, Toast } from 'react-bootstrap';
+import { Col, Container, Modal, Row } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -8,6 +8,7 @@ import { CinemaHallComponent } from './index';
 
 import { getSessionId, getPurchaseSeats } from '../redux/ducks/schedule';
 import { AppStateType } from '../redux/store';
+import TicketsComponent from './TicketsComponent';
 
 type PurchaseSeatsType = {
   id: number;
@@ -24,8 +25,7 @@ type DispatchPropsType = {
   getPurchaseSeats: (payload: PurchaseSeatsType) => void;
 };
 
- export type PropsType = MapPropsType &
-  DispatchPropsType;
+export type PropsType = MapPropsType & DispatchPropsType;
 
 const ModalWindowComponent: React.FC<PropsType> = ({
   sessionSeats,
@@ -33,9 +33,10 @@ const ModalWindowComponent: React.FC<PropsType> = ({
   getSessionId,
   getPurchaseSeats,
 }) => {
-  const history = useHistory();
-  const { id } = useParams<PathParamType>();
   const [chosenSeats, setChosenSeats] = useState<Array<number>>([]);
+  const { id } = useParams<PathParamType>();
+  const history = useHistory();
+
   const urlId: number = Number(id);
 
   useEffect(() => {
@@ -48,16 +49,17 @@ const ModalWindowComponent: React.FC<PropsType> = ({
     getPurchaseSeats({ id: urlId, seats: chosenSeats });
     history.push('/');
   };
-  const onDeleteChoizedTicket = (id: number): void => {
-    setChosenSeats([...chosenSeats.filter((item: number) => item !== id)]);
-  };
 
   const onSeatClick = (id: number): void => {
     if (chosenSeats.includes(id)) {
-      onDeleteChoizedTicket(id);
+      onDeleteTicket(id);
     } else {
       setChosenSeats((array) => [...array, id]);
     }
+  };
+
+  const onDeleteTicket = (id: number): void => {
+    setChosenSeats([...chosenSeats.filter((item: number) => item !== id)]);
   };
 
   return (
@@ -83,32 +85,11 @@ const ModalWindowComponent: React.FC<PropsType> = ({
                 onSeatClick={onSeatClick}
               />
             </Col>
-            <Col
-              xs="10"
-              sm="6"
-              lg="3"
-              className=" d-flex flex-column justify-content-around align-items-center mb-5 mt-2"
-            >
-              <h3>Tickets</h3>
-              <Col className="d-flex flex-column">
-                {chosenSeats?.length ? (
-                  chosenSeats.map((seat) => (
-                    <div key={seat}>
-                      <Toast onClose={() => onDeleteChoizedTicket(seat)}>
-                        <Toast.Header>
-                          <strong data-testid={seat} className="mr-auto">{seat}</strong>
-                        </Toast.Header>
-                      </Toast>
-                    </div>
-                  ))
-                ) : (
-                  <span>Choose your seats</span>
-                )}
-              </Col>
-              <Button variant="danger" onClick={() => handleModalClose()}>
-                Buy Tickets
-              </Button>
-            </Col>
+            <TicketsComponent
+              chosenSeats={chosenSeats}
+              handleModalClose={handleModalClose}
+              onDeleteTicket={onDeleteTicket}
+            />
           </Row>
         </Container>
       </Modal.Body>
